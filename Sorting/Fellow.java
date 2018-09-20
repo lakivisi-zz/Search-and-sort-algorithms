@@ -1,4 +1,6 @@
-public class Fellow {
+import java.util.*;
+
+public class Fellow implements Comparable<Fellow>{
   String name;
   String email;
   Integer cohortNo;
@@ -43,6 +45,11 @@ public class Fellow {
 
   @Override
   public String toString() {
-        return "Name: {}, email: {}".format(name, location);
-    }
+    return String.format("{Name: %s , email: %s, cohort: %d, location: %s}\n", name, email, cohortNo, location);
+  }
+
+  public int compareTo(Fellow nxtFellow) {
+      return this.name.compareTo(nxtFellow.getName());
+  }
+
 }
