@@ -20,22 +20,44 @@ class Main {
         scNodes.get(x).nodes.add(new Node(fellowstr));
 
       }
-      resulString = fellowSearch(oGraph.root, "ol");
+      resulString = fellowDFSearch(oGraph.root, "ol");
+      System.out.println("Depth First Search executing ....");
+      System.out.println(resulString);
+
+      resulString = fellowBFSearch(oGraph.root, "yrt");
+      System.out.println("Breadth First Search executing ....");
       System.out.println(resulString);
     }
 
-  public static String fellowSearch(Node root, String searchString){
+  public static String fellowDFSearch(Node root, String searchString){
 
     if (root == null) return "Graph is empty";
 
-    if(root.name.contains(searchString)) return "Person found";
+    if(root.name.contains(searchString)) return root.name + " found";
 
     if(root.nodes != null){
       for (Node node : root.nodes) {
-        if (!node.name.contains(searchString)) fellowSearch(node, searchString);
+        if (!node.name.contains(searchString)) fellowDFSearch(node, searchString);
         return searchString + " found";
         }
       }
+    return "Not found";
+  }
+
+  public static String fellowBFSearch(Node root, String searchString){
+    if (root == null) return "Graph is empty";
+
+    Queue<Node> searchQueue = new LinkedList();
+    searchQueue.add(root);
+
+    while (!searchQueue.isEmpty()) {
+      Node currnode = searchQueue.remove();
+      if(currnode.name.contains(searchString)) return currnode.name + " found";
+
+      for (Node newNode : currnode.nodes) {
+        searchQueue.add(newNode);
+      }
+	  }
     return "Not found";
   }
 }
